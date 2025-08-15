@@ -1,4 +1,4 @@
-package com.devteria.profile.dto.request;
+package com.devteria.identity.dto.request;
 
 import java.time.LocalDate;
 
