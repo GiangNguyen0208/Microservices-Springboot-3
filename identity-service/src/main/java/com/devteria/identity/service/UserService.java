@@ -20,7 +20,7 @@ import com.devteria.identity.mapper.ProfileMapper;
 import com.devteria.identity.mapper.UserMapper;
 import com.devteria.identity.repository.RoleRepository;
 import com.devteria.identity.repository.UserRepository;
-import com.devteria.identity.repository.http.ProfileClient;
+import com.devteria.identity.repository.httpClient.ProfileClient;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     UserMapper userMapper;
-    ProfileMapper profileMapper
+    ProfileMapper profileMapper;
     PasswordEncoder passwordEncoder;
     ProfileClient profileClient;
 
@@ -51,11 +51,12 @@ public class UserService {
         user.setRoles(roles);
         user = userRepository.save(user);
 
-        profileClient
-                .createProfile(profileMapper.toProfileCreationRequest(user))
-                .orElseThrow(() -> new AppException(ErrorCode.PROFILE_CREATION_FAILED));
+        var profileRequest = profileMapper.toProfileCreationRequest(request);
+        profileRequest.setUserId(user.getId());
 
-        return userMapper.toUserResponse(userRepository.save(user));
+        profileClient.createProfile(profileRequest);
+
+        return userMapper.toUserResponse(user);
     }
 
     public UserResponse getMyInfo() {
