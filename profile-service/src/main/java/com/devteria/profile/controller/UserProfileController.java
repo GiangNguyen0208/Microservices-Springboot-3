@@ -1,11 +1,5 @@
 package com.devteria.profile.controller;
 
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.*;
-
-import com.devteria.profile.dto.request.ProfileCreationRequest;
-import com.devteria.profile.dto.response.UserProfileReponse;
-=======
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devteria.profile.dto.request.UserProfileCreationRequest;
 import com.devteria.profile.dto.response.UserProfileCreationResponse;
->>>>>>> course/initial-branch
 import com.devteria.profile.service.UserProfileService;
 
 import lombok.AccessLevel;
@@ -31,16 +24,6 @@ import lombok.experimental.FieldDefaults;
 public class UserProfileController {
     UserProfileService userProfileService;
 
-<<<<<<< HEAD
-    @PostMapping("/users")
-    UserProfileReponse createProfile(@RequestBody ProfileCreationRequest request) {
-        return userProfileService.createProfile(request);
-    }
-
-    @GetMapping("/users/{profileId}")
-    UserProfileReponse getProfile(@PathVariable String profileId) {
-        return userProfileService.getProfile(profileId);
-=======
     @PostMapping("/user/create")
     public ResponseEntity<UserProfileCreationResponse> createProfile(@RequestBody UserProfileCreationRequest request) {
         UserProfileCreationResponse response = userProfileService.createProfile(request);
@@ -57,6 +40,5 @@ public class UserProfileController {
     public ResponseEntity<List<UserProfileCreationResponse>> getAllProfiles() {
         List<UserProfileCreationResponse> responses = userProfileService.getAllProfiles();
         return ResponseEntity.ok(responses);
->>>>>>> course/initial-branch
     }
 }
